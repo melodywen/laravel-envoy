@@ -175,3 +175,29 @@
     echo '| php-version: {{ $phpVersion }}'
     echo '-----------------------------------------------------------------'
 @endtask
+
+@task('php-optimize',['on' => 'web'])
+    {{--1. 修改 php cli 的内容--}}
+    sed -i "s/memory_limit = .*/memory_limit = 512M/" /etc/php/{{ $phpVersion }}/cli/php.ini
+    sed -i "s/;date.timezone.*/date.timezone = UTC/" /etc/php/{{ $phpVersion }}/cli/php.ini
+
+    {{--2. 修改 php fpm 的内容--}}
+    sed -i "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/" /etc/php/{{ $phpVersion }}/fpm/php.ini
+    sed -i "s/memory_limit = .*/memory_limit = 512M/" /etc/php/{{ $phpVersion }}/fpm/php.ini
+    sed -i "s/upload_max_filesize = .*/upload_max_filesize = 50M/" /etc/php/{{ $phpVersion }}/fpm/php.ini
+    sed -i "s/post_max_size = .*/post_max_size = 50M/" /etc/php/{{ $phpVersion }}/fpm/php.ini
+    sed -i "s/;date.timezone.*/date.timezone = UTC/" /etc/php/{{ $phpVersion }}/fpm/php.ini
+
+    sed -i "s/pm.max_children =.*/pm.max_children = 300/" /etc/php/{{ $phpVersion }}/fpm/pool.d/www.conf
+    sed -i "s/pm.start_servers =.*/pm.start_servers = 20/" /etc/php/{{ $phpVersion }}/fpm/pool.d/www.conf
+    sed -i "s/pm.min_spare_servers =.*/pm.min_spare_servers = 5/" /etc/php/{{ $phpVersion }}/fpm/pool.d/www.conf
+    sed -i "s/pm.max_spare_servers =.*/pm.max_spare_servers = 35/" /etc/php/{{ $phpVersion }}/fpm/pool.d/www.conf
+
+    {{--3. 重启 --}}
+    /etc/init.d/php{{ $phpVersion }}-fpm restart
+
+    echo '-----------------------------------------------------------------'
+    echo '| php optimize  success!!! congratulation you ^_^ ^_^ ^_^ '
+    echo '| php-version: {{ $phpVersion }}'
+    echo '-----------------------------------------------------------------'
+@endtask

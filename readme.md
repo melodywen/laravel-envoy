@@ -33,3 +33,7 @@ $php_version=7.1        // php版本
     ```$xslt
     envoy run install-php --phpVersion=php7.0
     ```
+6. php 常规优化 , 可以是 php5.6,php7.0,php7.1,php7.2.
+    ```$xslt
+    envoy run php-optimize --phpVersion=php7.0
+    ```
