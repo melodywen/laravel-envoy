@@ -239,3 +239,30 @@
     echo '| php-version: {{ $phpVersion }}'
     echo '-----------------------------------------------------------------'
 @endtask
+
+@task('change-php-version',['on' => 'web'])
+    update-alternatives --set php /usr/bin/php{{ $phpVersion }}
+
+    echo '-----------------------------------------------------------------'
+    echo '| php version change is success !!! congratulation you ^_^ ^_^ ^_^ '
+    echo '| php-version: {{ $phpVersion }}'
+    echo '-----------------------------------------------------------------'
+@endtask
+
+@task('project-clone',['on' => 'web'])
+    cd {{ $rootDir }}
+    git clone {{ $projectUrl }}
+    cd {{ trim( explode('.',strrchr($projectUrl,'/'))[0],'/') }}
+    pwd
+    chmod -R 777 storage
+    composer install
+
+    echo '-----------------------------------------------------------------'
+    echo '| git clone project success !!! congratulation you ^_^ ^_^ ^_^ '
+    echo '| project-url: {{ $projectUrl }}'
+    echo '-----------------------------------------------------------------'
+@endtask
+
+@task('project-pull',['on' => 'web'])
+
+@endtask

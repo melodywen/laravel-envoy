@@ -5,7 +5,7 @@
 ```$xslt
 $php_version=7.1        // php版本
 ```
-### 2. 命令的介绍
+### 2. 环境远程部署
 1. web环境的初始化: 会安装 nginx mysql redis php  git composer 等等
     ```$xslt
     envoy run env-init --phpVersion=php7.1
@@ -41,4 +41,17 @@ $php_version=7.1        // php版本
    ```$xslt
     envoy run php-display_errors-on --phpVersion=php7.0   展示错误
     envoy run php-display_errors-off --phpVersion=php7.0  关闭错误展示
+    ```    
+8. php cli 的版本切换
+    ```$xslt
+    envoy run change-php-version --phpVersion=php7.0  
     ```
+    
+### 3. 项目远程部署
+1. 简单的克隆项目
+    ```$xslt
+    envoy run project-clone --projectUrl=https://github.com/MrJiawen/laravel_travis.git
+    ```
+2. 其他的请根据实际进行自定义 envoy 命令
+    * 包括git 拉去代码
+    * 包括 持续部署
