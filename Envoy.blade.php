@@ -201,3 +201,41 @@
     echo '| php-version: {{ $phpVersion }}'
     echo '-----------------------------------------------------------------'
 @endtask
+
+@task('php-display_errors-on',['on' => 'web'])
+
+    {{--1. 修改 php cli 的内容--}}
+    sed -i "s/display_errors = .*/display_errors = On/" /etc/php/7.1/cli/php.ini
+    sed -i "s/error_reporting = .*/error_reporting = E_ALL \& ~E_NOTICE \& ~E_STRICT \& ~E_DEPRECATED/" /etc/php/7.1/cli/php.ini
+
+    {{--2. 修改 php fpm 的内容--}}
+    sed -i "s/error_reporting = .*/error_reporting = E_ALL \& ~E_NOTICE \& ~E_STRICT \& ~E_DEPRECATED/" /etc/php/7.1/fpm/php.ini
+    sed -i "s/display_errors = .*/display_errors = On/" /etc/php/7.1/fpm/php.ini
+
+    {{--3. 重启 --}}
+    /etc/init.d/php{{ $phpVersion }}-fpm restart
+
+    echo '-----------------------------------------------------------------'
+    echo '|  php display errors success to turn on  !!! congratulation you ^_^ ^_^ ^_^ '
+    echo '| php-version: {{ $phpVersion }}'
+    echo '-----------------------------------------------------------------'
+@endtask
+
+@task('php-display_errors-off',['on' => 'web'])
+
+    {{--1. 修改 php cli 的内容--}}
+    sed -i "s/display_errors = .*/display_errors = Off/" /etc/php/7.1/cli/php.ini
+    sed -i "s/error_reporting = .*/error_reporting = E_ALL \& ~E_DEPRECATED \& ~E_STRICT/" /etc/php/7.1/cli/php.ini
+
+    {{--2. 修改 php fpm 的内容--}}
+    sed -i "s/error_reporting = .*/error_reporting = E_ALL \& ~E_DEPRECATED \& ~E_STRICT/" /etc/php/7.1/fpm/php.ini
+    sed -i "s/display_errors = .*/display_errors = Off/" /etc/php/7.1/fpm/php.ini
+
+    {{--3. 重启 --}}
+    /etc/init.d/php{{ $phpVersion }}-fpm restart
+
+    echo '-----------------------------------------------------------------'
+    echo '| php display errors success to  turn off !!! congratulation you ^_^ ^_^ ^_^ '
+    echo '| php-version: {{ $phpVersion }}'
+    echo '-----------------------------------------------------------------'
+@endtask

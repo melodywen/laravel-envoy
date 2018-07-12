@@ -37,3 +37,8 @@ $php_version=7.1        // php版本
     ```$xslt
     envoy run php-optimize --phpVersion=php7.0
     ```
+7. php 是否展示错误
+   ```$xslt
+    envoy run php-display_errors-on --phpVersion=php7.0   展示错误
+    envoy run php-display_errors-off --phpVersion=php7.0  关闭错误展示
+    ```
