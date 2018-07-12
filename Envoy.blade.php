@@ -48,6 +48,9 @@ $php_version=7.1        // php版本
     curl -sS https://getcomposer.org/installer | php
     mv composer.phar /usr/local/bin/composer
 
+    {{--8. Add Co mposer Global Bin To Path--}}
+    printf "\nPATH=\"$(composer config -g home 2>/dev/null)/vendor/bin:\$PATH\"\n" | tee -a ~/.profile
+
     echo '-----------------------------------------------------------------'
     echo '| environment install success!!! congratulation you ^_^ ^_^ ^_^ | '
     echo '-----------------------------------------------------------------'
