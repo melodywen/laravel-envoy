@@ -28,3 +28,8 @@ $php_version=7.1        // php版本
     envoy run nginx-site-remove --host=www.cjw.com
     ```
     * 原理是直接删除站点软连接，然后重启nginx
+    
+5. 安装多个不同版本的php, 可以是 php5.6,php7.0,php7.1,php7.2.
+    ```$xslt
+    envoy run install-php --phpVersion=php7.0
+    ```
