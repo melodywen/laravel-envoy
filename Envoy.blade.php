@@ -1,12 +1,13 @@
 @setup
-    // 默认 初始化web环境的php版本
-    $php_version=7.1;
+    // 默认 初始化web环境的php版本  默认的php 版本为 7.1
+    $phpVersion= $phpVersion ?? 7.1;
+    $phpVersion = trim($phpVersion,'php');
 
     // ngnix 的站点配置 可以传递的参数有  $host 、$phpFPM 、$projectName
     $rootDir = '/vagrant';
 
     $host = $host ?? 'localhost';
-    $phpFPM = $phpFPM ?? $php_version;
+    $phpFPM = $phpFPM ?? $phpVersion;
     $phpFPM = trim($phpFPM,'php');
     $projectName = $projectName ?? 'laravel';
 
@@ -42,19 +43,19 @@
     apt-get install -y software-properties-common
     LC_ALL=en_US.UTF-8 add-apt-repository ppa:ondrej/php
     apt-get update
-    apt-get -y install php{{$php_version}}
-    apt-get -y install php{{$php_version}}-fpm
+    apt-get -y install php{{$phpVersion}}
+    apt-get -y install php{{$phpVersion}}-fpm
 
-    apt-get install -y mcrypt php{{$php_version}}-mcrypt php{{$php_version}}-mysql \
-    php{{$php_version}}-curl php{{$php_version}}-gd \
-    php{{$php_version}}-dom php{{$php_version}}-mbstring \
-    php{{$php_version}}-pgsql php{{$php_version}}-sqlite3 \
-    php{{$php_version}}-apcu php{{$php_version}}-mcrypt \
-    php{{$php_version}}-imap php{{$php_version}}-memcached \
-    php{{$php_version}}-readline php{{$php_version}}-xdebug \
-    php{{$php_version}}-xml php{{$php_version}}-zip \
-    php{{$php_version}}-intl php{{$php_version}}-bcmath \
-    php{{$php_version}}-soap
+    apt-get install -y mcrypt php{{$phpVersion}}-mcrypt php{{$phpVersion}}-mysql \
+    php{{$phpVersion}}-curl php{{$phpVersion}}-gd \
+    php{{$phpVersion}}-dom php{{$phpVersion}}-mbstring \
+    php{{$phpVersion}}-pgsql php{{$phpVersion}}-sqlite3 \
+    php{{$phpVersion}}-apcu php{{$phpVersion}}-mcrypt \
+    php{{$phpVersion}}-imap php{{$phpVersion}}-memcached \
+    php{{$phpVersion}}-readline php{{$phpVersion}}-xdebug \
+    php{{$phpVersion}}-xml php{{$phpVersion}}-zip \
+    php{{$phpVersion}}-intl php{{$phpVersion}}-bcmath \
+    php{{$phpVersion}}-soap
 
     {{--7. 安装compser--}}
     curl -sS https://getcomposer.org/installer | php
@@ -64,7 +65,10 @@
     printf "\nPATH=\"$(composer config -g home 2>/dev/null)/vendor/bin:\$PATH\"\n" | tee -a ~/.profile
 
     echo '-----------------------------------------------------------------'
-    echo '| environment install success!!! congratulation you ^_^ ^_^ ^_^ | '
+    echo '| environment install success!!! congratulation you ^_^ ^_^ ^_^ '
+    echo '| install service: nginx redis git composer'
+    echo '| php-version: {{ $phpVersion }}'
+    echo '| mysql-version: {{ 5.7 }}'
     echo '-----------------------------------------------------------------'
 @endtask
 
@@ -144,5 +148,30 @@
     echo '-----------------------------------------------------------------'
     echo '| nginx site remove success !!! congratulation you,  ^_^ ^_^ ^_^  '
     echo '| host: {{ $host }}                                               '
+    echo '-----------------------------------------------------------------'
+@endtask
+
+@task('install-php',['on' => 'web'])
+    {{--1. 安装指定版本的php--}}
+    apt-get install -y software-properties-common
+    LC_ALL=en_US.UTF-8 add-apt-repository ppa:ondrej/php
+    apt-get update
+    apt-get -y install php{{$phpVersion}}
+    apt-get -y install php{{$phpVersion}}-fpm
+
+    apt-get install -y mcrypt php{{$phpVersion}}-mcrypt php{{$phpVersion}}-mysql \
+    php{{$phpVersion}}-curl php{{$phpVersion}}-gd \
+    php{{$phpVersion}}-dom php{{$phpVersion}}-mbstring \
+    php{{$phpVersion}}-pgsql php{{$phpVersion}}-sqlite3 \
+    php{{$phpVersion}}-apcu php{{$phpVersion}}-mcrypt \
+    php{{$phpVersion}}-imap php{{$phpVersion}}-memcached \
+    php{{$phpVersion}}-readline php{{$phpVersion}}-xdebug \
+    php{{$phpVersion}}-xml php{{$phpVersion}}-zip \
+    php{{$phpVersion}}-intl php{{$phpVersion}}-bcmath \
+    php{{$phpVersion}}-soap
+
+    echo '-----------------------------------------------------------------'
+    echo '| php install success!!! congratulation you ^_^ ^_^ ^_^ '
+    echo '| php-version: {{ $phpVersion }}'
     echo '-----------------------------------------------------------------'
 @endtask

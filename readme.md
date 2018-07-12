@@ -8,7 +8,7 @@ $php_version=7.1        // php版本
 ### 2. 命令的介绍
 1. web环境的初始化: 会安装 nginx mysql redis php  git composer 等等
     ```$xslt
-    envoy run env-init 
+    envoy run env-init --phpVersion=php7.1
     ```
 2. composer换源命令
     ```$xslt
