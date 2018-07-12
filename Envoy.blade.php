@@ -2,11 +2,10 @@
 $php_version=7.1        // php版本
 }}
 
-@servers(['web' => 'vagrant@192.168.33.10'])
+@servers(['web' => 'root@192.168.33.10'])
 
 {{--初始化安装web 环境 ： nginx 、mysql  、redis 、git 、vim    php--}}
 @task('env-init',['on' => 'web'])
-    sudo su
     apt-get update
 
     {{--1. 移除 apache2--}}
@@ -56,3 +55,11 @@ $php_version=7.1        // php版本
     echo '-----------------------------------------------------------------'
 @endtask
 
+{{--composer 切换中国镜像--}}
+@task('composer-china-mirror',['on' => 'web'])
+    composer config -g repo.packagist composer https://packagist.phpcomposer.com
+@endtask
+{{--composer 切换官方镜像--}}
+@task('composer-office-mirror',['on' => 'web'])
+    composer config -g repo.packagist composer https://packagist.org
+@endtask
