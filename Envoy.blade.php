@@ -111,10 +111,12 @@
 
     sed -i "s/#}/}/g" {{ $host }}
 
+    {{--3. 软连接 --}}
     cd /etc/nginx/sites-enabled
     rm -f {{$host}}
     ln -s /etc/nginx/sites-available/{{$host}}
 
+    {{--4. 检查nginx配置，然后重启nginx--}}
     nginx -t
     nginx -s stop
     nginx
@@ -125,5 +127,22 @@
     echo '| php-fpm: php-{{ $phpFPM }}                                      '
     echo '| projectName: {{ $projectName }}                                 '
     echo '| realPath: {{ $realPath }}                                       '
+    echo '-----------------------------------------------------------------'
+@endtask
+
+@task('nginx-site-remove',['on' => 'web'])
+
+    {{--1. 移除软连接 --}}
+    cd /etc/nginx/sites-enabled
+    rm -f {{$host}}
+
+    {{--4. 检查nginx配置，然后重启nginx--}}
+    nginx -t
+    nginx -s stop
+    nginx
+
+    echo '-----------------------------------------------------------------'
+    echo '| nginx site remove success !!! congratulation you,  ^_^ ^_^ ^_^  '
+    echo '| host: {{ $host }}                                               '
     echo '-----------------------------------------------------------------'
 @endtask

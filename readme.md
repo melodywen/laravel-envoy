@@ -22,3 +22,9 @@ $php_version=7.1        // php版本
     * 此站点配置主要是针对与laravel 的项目站点配置，它会自动配置到项目的public下面
     * 根路径已经是设置好了，默认值是 `/vagrant`,如果是线上，请改为 `/var/www`
     * 同一个主机里，不同的项目可以使用 不同的php版本。指定phpfpm版本即可
+    
+4. 移除站点
+    ```$xslt
+    envoy run nginx-site-remove --host=www.cjw.com
+    ```
+    * 原理是直接删除站点软连接，然后重启nginx
