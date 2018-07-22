@@ -4,15 +4,6 @@
 
 {{--初始化安装web 环境 ： nginx 、mysql  、redis 、git 、vim    php--}}
 @task('env-init',['on' => 'web'])
-
-
-     {{--4. 安装 mysql 时候需要输入密码--}}
-    sudo debconf-set-selections <<< 'mysql-server-5.6 mysql-server/root_password password 123456'
-    sudo debconf-set-selections <<< 'mysql-server-5.6 mysql-server/root_password_again password 123456'
-
-    {{--5. 安装web 应用以及基础应用--}}
-    apt-get -y install nginx mysql-server mysql-client  redis-server git curl unzip vim
-
     {{--6. 安装指定版本的php--}}
     apt-get install -y software-properties-common
     LC_ALL=en_US.UTF-8 add-apt-repository ppa:ondrej/php
