@@ -47,9 +47,27 @@
     {{--3. Add Co mposer Global Bin To Path--}}
     printf "\nPATH=\"$(composer config -g home 2>/dev/null)/vendor/bin:\$PATH\"\n" | tee -a ~/.profile
 
-    echo '-----------------------------------------------------------------------'
+    echo '--------------------------------------------------------------------------------------'
     echo '| task-php-composer-install command success!!! congratulation you ^_^ ^_^ ^_^ '
-    echo '| describe: composer install success
-    echo '-----------------------------------------------------------------------'
+    echo '| describe: composer install success'
+    echo '--------------------------------------------------------------------------------------'
 @endtask
 
+
+{{--composer 切换中国镜像--}}
+@task('task-php-composer-china-mirror')
+    composer config -g repo.packagist composer https://packagist.phpcomposer.com
+    echo '--------------------------------------------------------------------------------------'
+    echo '| task-php-composer-china-mirror command success!!! congratulation you ^_^ ^_^ ^_^ '
+    echo '| describe: composer mirror change success'
+    echo '--------------------------------------------------------------------------------------'
+@endtask
+
+{{--composer 切换官方镜像--}}
+@task('task-php-composer-office-mirror')
+    composer config -g repo.packagist composer https://packagist.org
+    echo '--------------------------------------------------------------------------------------'
+    echo '| task-php-composer-office-mirror command success!!! congratulation you ^_^ ^_^ ^_^ '
+    echo '| describe: composer mirror change success'
+    echo '--------------------------------------------------------------------------------------'
+@endtask
