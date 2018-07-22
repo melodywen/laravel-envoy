@@ -28,7 +28,7 @@
 
     // 2.2 得到相对值
     $real_path = rtrim($root_dir, '/') . '/' . $project_name . '/public';
-    $real_path_pattern = str_replace('/', '\/', $realPath);
+    $real_path_pattern = str_replace('/', '\/', $real_path);
 @endsetup
 
 
