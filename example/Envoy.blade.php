@@ -4,17 +4,7 @@
 
 {{--初始化安装web 环境 ： nginx 、mysql  、redis 、git 、vim    php--}}
 @task('env-init',['on' => 'web'])
-    apt-get update
 
-    {{--1. 移除 apache2--}}
-    apt-get purge apache2 -y
-
-    {{-- 2. Force Locale--}}
-    apt-get install -y language-pack-en-base
-    locale-gen en_US.UTF-8
-
-    {{--3. Set My Timezone--}}
-    ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 
      {{--4. 安装 mysql 时候需要输入密码--}}
     sudo debconf-set-selections <<< 'mysql-server-5.6 mysql-server/root_password password 123456'
