@@ -6,7 +6,10 @@
             "email": "604989282@qq.com"
         }
     ],
-    "require": {
-
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "JW\\Envoy\\": "src/"
+        }
     }
 }
