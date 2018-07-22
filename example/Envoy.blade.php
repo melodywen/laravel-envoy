@@ -1,20 +1,4 @@
-@setup
-    // 默认 初始化web环境的php版本  默认的php 版本为 7.1
-    $phpVersion= $phpVersion ?? 7.1;
-    $phpVersion = trim($phpVersion,'php');
 
-    // ngnix 的站点配置 可以传递的参数有  $host 、$phpFPM 、$projectName
-    $rootDir = '/vagrant';
-
-    $host = $host ?? 'localhost';
-    $phpFPM = $phpFPM ?? $phpVersion;
-    $phpFPM = trim($phpFPM,'php');
-    $projectName = $projectName ?? 'laravel';
-
-    $realPath = rtrim($rootDir,'/').'/'. $projectName . '/public';
-    $realPathPattern = str_replace('/','\/',$realPath);
-
-@endsetup
 
 @servers(['web' => 'root@192.168.33.10'])
 
