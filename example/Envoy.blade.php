@@ -264,5 +264,10 @@
 @endtask
 
 @task('project-pull',['on' => 'web'])
+    ls /vagrant
+    project-pull1
+@endtask
 
+@task('project-pull1',['on' => 'web'])
+    ls /vagrant
 @endtask
