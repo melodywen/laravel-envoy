@@ -43,7 +43,7 @@
     mv composer.phar /usr/local/bin/composer
 
     {{--3. Add Co mposer Global Bin To Path--}}
-    printf "\nPATH=\"$(composer config -g home 2>/dev/null)/vendor/bin:\$PATH\"\n" | tee -a ~/.profile
+    printf "\nexport PATH=~/.composer/vendor/bin:\$PATH" | tee -a ~/.bash_profile
 
     echo '--------------------------------------------------------------------------------------'
     echo '| task-php-composer-install command success!!! congratulation you ^_^ ^_^ ^_^ '
