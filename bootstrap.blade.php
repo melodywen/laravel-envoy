@@ -19,6 +19,7 @@
     * @param $root_dir         虚拟主机的 项目根目录
     * @param $php_fpm          使用的 php-fpm 的版本名称
     * @param $project_name     使用的项目名称
+    * @param $php_type         使用php的类型 一种为 sock 、 一种为FastCGI
     */
     $root_dir = $root_dir ?? '/vagrant';
     $host = $host ?? 'localhost';

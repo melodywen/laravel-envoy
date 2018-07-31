@@ -28,6 +28,9 @@ $php_fpm = 7.1
 
 # 使用的项目名称 (默认)
 $project_name = 'laravel'   
+
+# 使用php的类型 一种为 Sock 、 一种为FastCGI (默认是 Sock)
+$php_type = 'Sock';
 ```
 ### 2. 环境远程部署
 1. web环境的初始化: 会安装 nginx mysql redis php  git composer 等等
@@ -37,7 +40,7 @@ $project_name = 'laravel'
     ```
 3. 新建nginx站点 (新建一个站点需要传递 fpm值 [php5.6,php7.0,php7.1,php7.2]，项目名称、域名)
     ```$xslt    
-    envoy run task-nginx-site-add  --php_fpm=php7.0 --project_name=laravel --host=www.cjw.com
+    envoy run task-nginx-site-add  --php_fpm=php7.0 --project_name=laravel --host=www.cjw.com --php_type=FastCGI
     ```
     * 此站点配置主要是针对与laravel 的项目站点配置，它会自动配置到项目的public下面
     * 根路径已经是设置好了，默认值是 `/vagrant`,如果是线上，请改为 `/var/www`
