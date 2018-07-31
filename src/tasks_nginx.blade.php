@@ -2,6 +2,7 @@
 @task('task-nginx-site-add')
     cd /etc/nginx/sites-available
     {{--1. 强行新建一个站点文件--}}
+    rm -f {{ $host }}
     cp default {{ $host }}
     {{--2. 修改文件中的内容--}}
     sed -i "/^#/d" {{ $host }}
@@ -25,8 +26,11 @@
     sed -i "/location ~ \\\.php/a\ \t\tfastcgi_split_path_info ^(.+\.php)(/.+)$;" {{ $host }}
     sed -i "s/#location ~ \\\.php/location ~ \\\.php/" {{ $host }}
     sed -i "s/#\(.*include snippets\/fastcgi-php\.conf\)/\1/" {{ $host }}
-    sed -i "s/#\(.*fastcgi_pass unix:\/run\/php\/php\)7\.0\(-fpm\.sock\)/\1{{ $php_fpm }}\2/" {{ $host }}
-
+    @if($php_type == 'Sock')
+        sed -i "s/#\(.*fastcgi_pass unix:\/run\/php\/php\)7\.0\(-fpm\.sock\)/\1{{ $php_fpm }}\2/" {{ $host }}
+    @else
+        sed -i "s/#\(.*fastcgi_pass.*127\.0\.0\.1:9000\)/\1/" {{ $host }}
+    @endif
 
     sed -i "s/#location ~ \/\\\.ht/location ~ \/\.(?!well-known).*/" {{ $host }}
     sed -i "s/#\(.*deny all;\)/\1/" {{ $host }}

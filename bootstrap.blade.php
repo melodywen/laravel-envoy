@@ -25,6 +25,7 @@
     $php_fpm = $php_fpm ?? $php_version;
     $php_fpm = trim($php_fpm, 'php');
     $project_name = $project_name ?? 'laravel';
+    $php_type = $php_type == 'FastCGI' ? 'FastCGI' : 'Sock';
 
     // 2.2 得到相对值
     $real_path = rtrim($root_dir, '/') . '/' . $project_name . '/public';
