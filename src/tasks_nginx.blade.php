@@ -19,11 +19,15 @@
     sed -i "/location ~ \\\.php/i\ \tlocation = \/favicon.ico \{ access_log off; log_not_found off; \}" {{ $host }}
     sed -i "/location ~ \\\.php/i\ \tlocation = \/robots.txt  \{ access_log off; log_not_found off; \}  \n" {{ $host }}
     sed -i "/location ~ \\\.php/i\ \terror_page 404 \/index.php;  \n" {{ $host }}
-    sed -i "/location ~ \\\.php/i\ \taccess_log /var/log/nginx/{{ $host }}-access.log;  \n" {{ $host }}
+    sed -i "/location ~ \\\.php/i\ \taccess_log /var/log/nginx/{{ $host }}-access.log;" {{ $host }}
     sed -i "/location ~ \\\.php/i\ \terror_log /var/log/nginx/{{ $host }}-error.log error;  \n" {{ $host }}
 
+    sed -i "/location ~ \\\.php/i\ \tadd_header X-Frame-Options \"SAMEORIGIN\";  " {{ $host }}
+    sed -i "/location ~ \\\.php/i\ \tadd_header X-XSS-Protection \"1; mode=block\"; " {{ $host }}
+    sed -i "/location ~ \\\.php/i\ \tadd_header X-Content-Type-Options \"nosniff\"; \n" {{ $host }}
 
-    sed -i "/location ~ \\\.php/a\ \t\tfastcgi_split_path_info ^(.+\.php)(/.+)$;" {{ $host }}
+
+    sed -i "/location ~ \\\.php/a\ \t\tfastcgi_split_path_info ^(.+\\\.php)(/.+)$;" {{ $host }}
     sed -i "s/#location ~ \\\.php/location ~ \\\.php/" {{ $host }}
     sed -i "s/#\(.*include snippets\/fastcgi-php\.conf\)/\1/" {{ $host }}
     @if($php_type == 'Sock')
@@ -32,7 +36,7 @@
         sed -i "s/#\(.*fastcgi_pass.*127\.0\.0\.1:9000\)/\1/" {{ $host }}
     @endif
 
-    sed -i "s/#location ~ \/\\\.ht/location ~ \/\.(?!well-known).*/" {{ $host }}
+    sed -i "s/#location ~ \/\\\.ht/location ~ \/\\\.(?!well-known).*/" {{ $host }}
     sed -i "s/#\(.*deny all;\)/\1/" {{ $host }}
 
     sed -i "s/#}/}/g" {{ $host }}
