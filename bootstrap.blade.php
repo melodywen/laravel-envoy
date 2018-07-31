@@ -31,6 +31,12 @@
     // 2.2 得到相对值
     $real_path = rtrim($root_dir, '/') . '/' . $project_name . '/public';
     $real_path_pattern = str_replace('/', '\/', $real_path);
+
+    /**
+    * 通用命令
+    * @param $command          执行远程服务器命令
+    */
+    $command = $command ?? 'pwd';
 @endsetup
 
 

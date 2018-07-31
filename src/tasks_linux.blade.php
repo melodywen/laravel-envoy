@@ -100,3 +100,7 @@
     echo '| describe: install success of redis-server'
     echo '----------------------------------------------------------------------------------------------'
 @endtask
+
+@task('task-command')
+    {{ $command }}
+@endtask

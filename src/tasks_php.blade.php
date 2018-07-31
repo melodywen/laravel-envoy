@@ -143,3 +143,23 @@
     echo '| php-version: {{ $php_version }}'
     echo '-----------------------------------------------------------------'
 @endtask
+
+@task('task-php-type-change-sock')
+    cd /etc/php/{{ $php_version }}/fpm/pool.d
+    sed -i "s/listen = .*/listen = \/run\/php\/php{{ $php_version }}-fpm\.sock/" www.conf
+
+    echo '-----------------------------------------------------------------------------'
+    echo '| php change to Sock that is success !!! congratulation you ^_^ ^_^ ^_^ '
+    echo '| php-version: {{ $php_version }}'
+    echo '------------------------------------------------------------------------------'
+@endtask
+
+@task('task-php-type-change-fastcgi')
+    cd /etc/php/{{ $php_version }}/fpm/pool.d
+    sed -i "s/listen = .*/listen = 127.0.0.1:9000/" www.conf
+
+    echo '-----------------------------------------------------------------------------'
+    echo '| php change to FastCGI that is success !!! congratulation you ^_^ ^_^ ^_^ '
+    echo '| php-version: {{ $php_version }}'
+    echo '------------------------------------------------------------------------------'
+@endtask
