@@ -17,3 +17,14 @@
     task-php-optimize
     task-php-display_errors-on
 @endstory
+
+{{-- 内测环境下的服务器部署 --}}
+@story('story-deploy',['on' => 'web'])
+    task-deploy-git-pull
+    task-deploy-composer
+    task-deploy-writable
+    task-deploy-migrate
+    task-deploy-seed
+    task-deploy-config-cache
+    task-deploy-route-cache
+@endstory

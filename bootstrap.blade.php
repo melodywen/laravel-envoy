@@ -28,7 +28,7 @@
     $project_name = $project_name ?? 'laravel';
     $php_type = $php_type == 'FastCGI' ? 'FastCGI' : 'Sock';
 
-    // 2.2 得到相对值
+    // 2.2 得到绝对值
     $real_path = rtrim($root_dir, '/') . '/' . $project_name . '/public';
     $real_path_pattern = str_replace('/', '\/', $real_path);
 
@@ -37,6 +37,16 @@
     * @param $command          执行远程服务器命令
     */
     $command = $command ?? 'pwd';
+
+    /**
+    * 3. 项目部署 （同上）
+    * @param $root_dir         虚拟主机的 项目根目录
+    * @param $project_name     使用的项目名称
+    * @param $project_root     项目的绝对路径
+    */
+    $branch_name = $branch_name ?? 'dev' ;
+    $project_root = rtrim($root_dir, '/') . '/' . $project_name ;
+
 @endsetup
 
 
@@ -47,4 +57,7 @@
 
 @import( $envoy_system_url .'/src/tasks_php.blade.php')
 
+@import( $envoy_system_url .'/src/tasks_deploy.blade.php')
+
 @import( $envoy_system_url .'/src/stories.blade.php')
+
