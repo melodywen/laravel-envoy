@@ -157,7 +157,7 @@
 @task('task-php-type-change-fastcgi')
     cd /etc/php/{{ $php_version }}/fpm/pool.d
     sed -i "s/listen = .*/listen = 127.0.0.1:9000/" www.conf
-
+    if [ ! -d "/run/php" ]; then mkdir -p /run/php; fi;
     echo '-----------------------------------------------------------------------------'
     echo '| php change to FastCGI that is success !!! congratulation you ^_^ ^_^ ^_^ '
     echo '| php-version: {{ $php_version }}'
