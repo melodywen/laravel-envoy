@@ -63,7 +63,7 @@
 
 {{--composer 切换官方镜像--}}
 @task('task-php-composer-office-mirror')
-    composer config -g repo.packagist composer https://packagist.org
+    composer config -g repo.packagist composer https://packagist.laravel-china.org
     echo '--------------------------------------------------------------------------------------'
     echo '| task-php-composer-office-mirror command success!!! congratulation you ^_^ ^_^ ^_^ '
     echo '| describe: composer mirror change success'

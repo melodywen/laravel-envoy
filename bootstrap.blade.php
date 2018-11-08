@@ -2,7 +2,7 @@
     /**
     * 定义envoy 不要覆盖它系统变量
     */
-    $envoy_system_url = 'vendor/mr-jiawen/laravel-envoy/';
+    $envoy_system_url = 'vendor/melody-wen/laravel-envoy/';
     $envoy_system_url = rtrim($envoy_system_url, '/');
 @endsetup
 
